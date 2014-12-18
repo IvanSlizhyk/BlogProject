@@ -17,7 +17,7 @@ namespace BlogProject.Services.Services
         {
         }
 
-        public Point CreatePoint(DateTime createDate, Guid userId)
+        public Point CreatePoint(DateTime createDate, int userId)
         {
             var pointRepository = RepositoryFactory.GetPointRepository();
             var point = new Point { CreateDate = createDate, UserId = userId };

@@ -15,7 +15,7 @@ namespace BlogProject.EFData.Mapping
         {
             HasKey(e => e.Id);
             Property(e => e.UserId).IsRequired();
-            HasRequired(e => e.Blog).WithMany(e => e.Comments).HasForeignKey(e => e.BlogId);
+            HasRequired(e => e.Post).WithMany(e => e.Comments).HasForeignKey(e => e.PostId);
             Property(e => e.Text).IsRequired().HasMaxLength(2000);
             Property(e => e.CreateDate).IsRequired();
             HasMany(e => e.Points).WithRequired(e => e.Comment).HasForeignKey(e => e.CommentId);

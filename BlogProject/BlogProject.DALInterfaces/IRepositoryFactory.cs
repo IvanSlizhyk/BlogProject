@@ -9,8 +9,9 @@ namespace BlogProject.DALInterfaces
 {
     public interface IRepositoryFactory
     {
-        IRepositoryGeneric<Blog, int> GetBlogRepository();
+        IRepositoryGeneric<Post, int> GetPostRepository();
         IRepositoryGeneric<Comment, int> GetCommentRepository();
         IRepositoryGeneric<Point, int> GetPointRepository();
+        IRepositoryGeneric<Blog, int> GetBlogRepository();
     }
 }

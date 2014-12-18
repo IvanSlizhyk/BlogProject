@@ -11,6 +11,6 @@ namespace BlogProject.Core.Entities
         public Comment Comment { get; set; }
         public int CommentId { get; set; }
         public DateTime CreateDate { get; set; }
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

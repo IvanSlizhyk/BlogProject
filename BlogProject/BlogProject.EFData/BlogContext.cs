@@ -11,9 +11,10 @@ namespace BlogProject.EFData
 {
     public class BlogContext : DbContext
     {
-        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Point> Points { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
 
         public BlogContext(string connectionStringName)
             : base(connectionStringName)
@@ -23,9 +24,10 @@ namespace BlogProject.EFData
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new BlogMap());
+            modelBuilder.Configurations.Add(new PostMap());
             modelBuilder.Configurations.Add(new CommentMap());
             modelBuilder.Configurations.Add(new PointMap());
+            modelBuilder.Configurations.Add(new BlogMap());
             
             base.OnModelCreating(modelBuilder);
         }

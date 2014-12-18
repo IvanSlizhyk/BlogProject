@@ -17,11 +17,13 @@ namespace BlogProject.Services.Services
         {
         }
 
-        public Comment CreateComment(Guid userId, string text, DateTime createDate)
+        public Comment CreateComment(int userId, string text, DateTime createDate, Post post)
         {
             var commentRepository = RepositoryFactory.GetCommentRepository();
             var comment = new Comment {UserId = userId, Text = text, CreateDate = createDate};
             commentRepository.Create(comment);
+
+            this.SetPostOfComment(post, comment);
 
             try
             {
@@ -93,10 +95,10 @@ namespace BlogProject.Services.Services
             }
         }
 
-        public void SetBlogOfComment(Blog blog, Comment comment)
+        public void SetPostOfComment(Post post, Comment comment)
         {
-            comment.Blog = blog;
-            comment.BlogId = blog.Id;
+            comment.Post = post;
+            comment.PostId = post.Id;
         }
 
         public void AddPointToComment(Point point, int commentId)

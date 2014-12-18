@@ -1,0 +1,27 @@
+﻿@using System.Text
+@using BlogProject.EFData
+@model BlogProject.Models.AllPostViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "CreatePost", "Post")
+</p>
+
+@{int count = 0;}
+@foreach (var item in Model.Posts)
+{
+    <div class="content-wrapper">
+        @{ count++; }
+        @{
+            var title = new StringBuilder(count + " -  " + item.Title);
+        }
+        <p>@Html.ActionLink(title.ToString(),"Article","Post", new {postId = item.Id}, new object())</p>
+        
+    </div>
+}

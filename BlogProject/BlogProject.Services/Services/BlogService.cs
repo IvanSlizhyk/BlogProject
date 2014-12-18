@@ -8,7 +8,7 @@ using BlogProject.BLInterfaces.Exceptions;
 using BlogProject.Core.Entities;
 using BlogProject.DALInterfaces;
 
-namespace BlogProject.Services
+namespace BlogProject.Services.Services
 {
     public class BlogService : BaseService, IBlogService
     {
@@ -17,10 +17,10 @@ namespace BlogProject.Services
         {
         }
 
-        public Blog CreateBlog(string title, string body, DateTime createDate, Guid userId)
+        public Blog CreateBlog(string body, string title, DateTime createDate, int userId)
         {
             var blogRepository = RepositoryFactory.GetBlogRepository();
-            var blog = new Blog {Body = body, Title = title, CreateDate = createDate, UserId = userId};
+            var blog = new Blog { Body = body, Title = title, CreateDate = createDate, UserId = userId};
             blogRepository.Create(blog);
 
             try
@@ -38,6 +38,7 @@ namespace BlogProject.Services
         public void UpdateBlog(Blog blog)
         {
             var blogRepository = RepositoryFactory.GetBlogRepository();
+
 
             try
             {
@@ -91,18 +92,6 @@ namespace BlogProject.Services
             {
                 throw new BlogServiceException(ex);
             }
-        }
-
-        public void AddCommentToBlog(Comment comment, int blogId)
-        {
-            var blog = GetBlogById(blogId);
-            blog.Comments.Add(comment);
-        }
-
-        public void RemoveCommentToBlog(Comment comment, int blogId)
-        {
-            var blog = GetBlogById(blogId);
-            blog.Comments.Remove(comment);
         }
     }
 }

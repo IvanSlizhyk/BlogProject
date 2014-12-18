@@ -9,12 +9,12 @@ namespace BlogProject.BLInterfaces.BLLInterfaces
 {
     public interface ICommentService : IService
     {
-        Comment CreateComment(Guid userId, string text, DateTime createDate);
+        Comment CreateComment(int userId, string text, DateTime createDate, Post post);
         void UpdateComment(Comment comment);
         void RemoveComment(Comment comment);
         Comment GetCommentById(int commentId);
         IQueryable<Comment> GetAllComments();
-        void SetBlogOfComment(Blog blog, Comment comment);
+        void SetPostOfComment(Post post, Comment comment);
         void AddPointToComment(Point point, int commentId);
         void RemovePointToCommnet(Point point, int commentId);
     }

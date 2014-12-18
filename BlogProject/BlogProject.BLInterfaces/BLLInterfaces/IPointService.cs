@@ -9,7 +9,7 @@ namespace BlogProject.BLInterfaces.BLLInterfaces
 {
     public interface IPointService : IService
     {
-        Point CreatePoint(DateTime createDate, Guid userId);
+        Point CreatePoint(DateTime createDate, int userId);
         void UpdatePoint(Point point);
         void RemovePoint(Point point);
         Point GetPointById(int pointId);

@@ -15,9 +15,10 @@ namespace BlogProject.EFData
         private readonly DbContextTransaction _transaction;
         private bool _isTransactionActive;
         private bool _disposed;
-        private IRepositoryGeneric<Blog, int> _blogRepository;
+        private IRepositoryGeneric<Post, int> _postRepository;
         private IRepositoryGeneric<Comment, int> _commentRepository;
         private IRepositoryGeneric<Point, int> _pointRepository;
+        private IRepositoryGeneric<Blog, int> _blogRepository; 
 
         public UnitOfWork(BlogContext context)
         {
@@ -86,9 +87,9 @@ namespace BlogProject.EFData
             }
         }
 
-        public IRepositoryGeneric<Blog, int> GetBlogRepository()
+        public IRepositoryGeneric<Post, int> GetPostRepository()
         {
-            return _blogRepository ?? (_blogRepository = new RepositoryGeneric<Blog, int>(_context));
+            return _postRepository ?? (_postRepository = new RepositoryGeneric<Post, int>(_context));
         }
 
         public IRepositoryGeneric<Comment, int> GetCommentRepository()
@@ -99,6 +100,11 @@ namespace BlogProject.EFData
         public IRepositoryGeneric<Point, int> GetPointRepository()
         {
             return _pointRepository ?? (_pointRepository = new RepositoryGeneric<Point, int>(_context));
+        }
+
+        public IRepositoryGeneric<Blog, int> GetBlogRepository()
+        {
+            return _blogRepository ?? (_blogRepository = new RepositoryGeneric<Blog, int>(_context));
         }
     }
 }

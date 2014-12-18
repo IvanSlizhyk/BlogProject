@@ -1,0 +1,40 @@
+﻿@model BlogProject.Models.PostViewModel
+
+@{
+    ViewBag.Title = "Article";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Article</h2>
+
+@Html.DisplayNameFor(model => model.UserId) -  @Html.DisplayFor(model => model.UserId)
+<br />
+@Html.DisplayNameFor(model => model.CreateDate) -  @Html.DisplayFor(model => model.CreateDate)
+<br />
+@Html.DisplayNameFor(model => model.Title) -  @Html.DisplayFor(model => model.Title)
+<br />
+@Html.DisplayNameFor(model => model.Body) -  @Html.DisplayFor(model => model.Body)
+<br />
+
+@Html.ActionLink("Edit", "EditPost", "Post", new { postPageId = Model.Id }, new object()) |
+@Html.ActionLink("Delete", "DeletePost", "Post", new { postViewModelId = Model.Id }, new object())
+
+<p>Comments:</p>
+@foreach (var item in Model.Comments)
+{
+    <div>
+        <br />
+        @item.UserId
+        @item.CreateDate
+        @item.Text
+        @item.Points.Count
+        
+        @Html.ActionLink("Delete", "DeleteComment", "Post", new { postViewModelId = item.Id }, new object())
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Create New Comment", "CreateComment", "Post", new { postId = Model.Id }, new object())
+</div>
+
+

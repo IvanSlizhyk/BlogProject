@@ -5,6 +5,8 @@ using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using BlogProject.EFData;
+using BlogProject.Services.Services;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -79,9 +81,29 @@ namespace BlogProject.Controllers
                 // Attempt to register the user
                 try
                 {
+                    var usersCount = 0;
+                    using (var ctx = new UsersContext()) { usersCount = ctx.UserProfiles.ToList().Count; }
+
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+
+                    var roles = (SimpleRoleProvider)Roles.Provider;
+                    if (usersCount == 0)
+                    {
+                        roles.CreateRole("Admin");
+                        roles.CreateRole("User");
+                        roles.AddUsersToRoles(new[] { model.UserName }, new[] { "Admin" });
+
+                        return RedirectToAction("Id", "Post");
+                    }
+                    else
+                    {
+                        roles.AddUsersToRoles(new[] { model.UserName }, new[] { "User" });
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
+                    
                 }
                 catch (MembershipCreateUserException e)
                 {
