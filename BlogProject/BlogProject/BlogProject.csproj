@@ -163,6 +163,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\ChangeCommentViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Models\AllPostViewModel.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\ChangePostViewModel.cs" />
+    <Compile Include="Models\FirstPageViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
@@ -300,6 +302,7 @@
     <Content Include="Views\Post\EditPost.cshtml" />
     <Content Include="Views\Post\Article.cshtml" />
     <Content Include="Views\Post\CreateComment.cshtml" />
+    <Content Include="Views\Post\EditBlog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

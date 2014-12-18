@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -45,6 +46,49 @@ namespace BlogProject.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditBlog()
+        {
+            var roles = (SimpleRoleProvider)Roles.Provider;
+
+            if (roles.IsUserInRole(HttpContext.User.Identity.Name, "Admin"))
+            {
+                var context = new BlogContext(Resources.ConnectionString);
+                var unit = new UnitOfWork(context);
+
+                var blogService = new BlogService(unit, unit);
+                var blogs = blogService.GetAllBlogs().ToList();
+
+                context.Dispose();
+
+                var blogViewModel = new BlogViewModel(blogs[0]);
+
+                return View(blogViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Index","Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditBlog(BlogViewModel blogViewModel)
+        {
+            var context = new BlogContext(Resources.ConnectionString);
+            var unit = new UnitOfWork(context);
+            var blogService = new BlogService(unit, unit);
+
+            var blog = blogService.GetBlogById(blogViewModel.Id);
+            blog.Title = blogViewModel.Title;
+            blog.Body = blogViewModel.Body;
+            blogService.UpdateBlog(blog);
+
+            unit.Commit();
+            context.Dispose();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
         public ActionResult Article(int postId)
         {
             var contex = new BlogContext(Resources.ConnectionString);
@@ -52,7 +96,25 @@ namespace BlogProject.Controllers
             var postService = new PostService(unit, unit);
 
             var post = postService.GetPostById(postId);
-            var postViewModel = new PostViewModel(post);
+
+            List<UserProfile> usersCount;
+            string userName;
+            using (var ctx = new UsersContext())
+            {
+                usersCount = ctx.UserProfiles.ToList();
+                var user = usersCount.Find(e => e.UserId == post.UserId);
+                userName = user.UserName;
+            }
+            
+            var postViewModel = new PostViewModel(post, userName);
+
+            string userName1;
+            foreach (var item in postViewModel.Comments)
+            {
+                var user = usersCount.Find(e => e.UserId == item.UserId);
+                userName1 = user.UserName.ToString(CultureInfo.InvariantCulture);
+                postViewModel.UsersName.Add(userName1);
+            }
 
             return View(postViewModel);
         }

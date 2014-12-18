@@ -7,11 +7,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Список постов:</h2> 
 
 <p>
-    @Html.ActionLink("Create New", "CreatePost", "Post")
-</p>
+    @Html.ActionLink("Create New Post", "CreatePost", "Post")
+</p> <hr/>
 
 @{int count = 0;}
 @foreach (var item in Model.Posts)
@@ -22,6 +22,6 @@
             var title = new StringBuilder(count + " -  " + item.Title);
         }
         <p>@Html.ActionLink(title.ToString(),"Article","Post", new {postId = item.Id}, new object())</p>
-        
+        <hr/>
     </div>
 }

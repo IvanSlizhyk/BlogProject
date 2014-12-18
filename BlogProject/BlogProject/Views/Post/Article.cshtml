@@ -5,31 +5,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Article</h2>
+<h2>Пост</h2>
 
-@Html.DisplayNameFor(model => model.UserId) -  @Html.DisplayFor(model => model.UserId)
+@Html.DisplayNameFor(model => model.UserName) -  @Html.DisplayFor(model => model.UserName)
 <br />
-@Html.DisplayNameFor(model => model.CreateDate) -  @Html.DisplayFor(model => model.CreateDate)
-<br />
-@Html.DisplayNameFor(model => model.Title) -  @Html.DisplayFor(model => model.Title)
-<br />
-@Html.DisplayNameFor(model => model.Body) -  @Html.DisplayFor(model => model.Body)
-<br />
+@Html.DisplayNameFor(model => model.CreateDate) -  @Html.DisplayFor(model => model.CreateDate) <hr/>
+@Html.DisplayNameFor(model => model.Title) -  @Html.DisplayFor(model => model.Title)<hr/>
+@Html.DisplayNameFor(model => model.Body) -  @Html.DisplayFor(model => model.Body)<hr/>
 
 @Html.ActionLink("Edit", "EditPost", "Post", new { postPageId = Model.Id }, new object()) |
 @Html.ActionLink("Delete", "DeletePost", "Post", new { postViewModelId = Model.Id }, new object())
-
+<hr/> <br/> <br/>
 <p>Comments:</p>
+<hr/>
+@{ int count = 0;}
 @foreach (var item in Model.Comments)
 {
     <div>
-        <br />
-        @item.UserId
+        @Model.UsersName[count]
+        <br/>
         @item.CreateDate
+        <hr/>
         @item.Text
-        @item.Points.Count
-        
+        <br/>
         @Html.ActionLink("Delete", "DeleteComment", "Post", new { postViewModelId = item.Id }, new object())
+        <br/>
+        @{ count++;}
+        <hr/>
+        <br/> <br/>
     </div>
 }
 

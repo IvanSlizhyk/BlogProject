@@ -16,13 +16,15 @@ namespace BlogProject.Models
         public DateTime CreateDate { get; set; }
         public List<Comment> Comments { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
+        public List<string> UsersName { get; set; }
 
         public PostViewModel()
         {
             
         }
 
-        public PostViewModel(Post post)
+        public PostViewModel(Post post, string userName)
         {
             Id = post.Id;
             Title = post.Title;
@@ -30,6 +32,8 @@ namespace BlogProject.Models
             CreateDate = post.CreateDate;
             UserId = post.UserId;
             Comments = post.Comments.ToList();
+            UserName = userName;
+            UsersName = new List<string>();
         }
     }
 }

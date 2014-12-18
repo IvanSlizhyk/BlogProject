@@ -1,20 +1,21 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model BlogProject.Models.FirstPageViewModel
+
+
 @section featured {
     <section class="featured">
         <div class="content-wrapper">
             <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
+                <h1>@Model.BlogViewModel.Title</h1> <br/> <hr/>
+                <h2>@Model.BlogViewModel.Body</h2>
+                <div class="float-right" style="color:aliceblue">
+                    @Html.ActionLink("Edit", "EditBlog", "Post")
+                </div>
             </hgroup>
-            <p>
-                
-            </p>
         </div>
     </section>
 }
-<h3>We suggest the following:</h3>
+<h2>@Model.ChangePostViewModel.Title</h2> <br/> <hr/>
+<h3>@Model.ChangePostViewModel.Body</h3>
 <ol class="round">
 
 </ol>
